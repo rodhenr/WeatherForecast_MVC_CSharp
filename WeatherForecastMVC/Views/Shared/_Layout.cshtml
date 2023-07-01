@@ -3,14 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebApplication1</title>
+    <title>WeatherForecast</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Home.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Forecast.css" asp-append-version="true" />
+    <link rel="icon" href="~/favicon-32x32.png" type="image/x-icon">
 </head>
 <body>
-    <div class="container" style="height: 100%">
-        <main role="main" class="pb-3" style="height: 100%">
+    <div class="h-100 w-100">
+        <main role="main" class="align-items-center d-flex h-100 justify-content-center pb-3 w-100">
             @RenderBody()
         </main>
     </div>

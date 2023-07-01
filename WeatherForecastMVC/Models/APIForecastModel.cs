@@ -2,6 +2,10 @@
 
 public class APIForecastModel
 {
+    public APIForecastModel()
+    {
+    }
+
     public APIForecastModel(string city, string region, string country, string localtime, string lastUpdate, decimal celsiusTemperature, decimal fahrenheitTemperature, string condition, int humidity, List<ForecastList> forecastList)
     {
         City = city;

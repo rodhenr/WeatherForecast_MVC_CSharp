@@ -1,0 +1,53 @@
+﻿.forecast-container {
+    background-color: #00A2EF;
+    border-radius: 4px;
+    height: 330px;
+    width: 465px;
+}
+
+.forecast-return{
+    color: blue;
+    text-decoration: none;
+}
+
+//Current
+.forecast-current-container {
+}
+
+.forecast-date {
+    font-size: 16px
+}
+
+.forecast-degrees {
+    font-size: 70px
+}
+
+//Daily items
+.forecast-daily-container {
+}
+
+.forecast-daily-container p {
+    color: #364954;
+}
+
+.forecast-daily-item {
+    background-color: #B7E0F8;
+}
+
+    .forecast-daily-item:hover {
+        background-color: #1994EE;
+    }
+
+.forecast-daily-item-title {
+    font-size: 12px;
+}
+
+.forecast-daily-item-temp {
+    font-size: 10px;
+}
+
+.forecast-daily-item-condition {
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+}

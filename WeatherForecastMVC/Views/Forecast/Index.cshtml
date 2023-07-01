@@ -1,65 +1,40 @@
-﻿@{
-    ViewData["Title"] = "Forecast";
-}
+﻿@model APIForecastModel
 
-<div class="d-flex justify-content-center align-items-center" style="height: 100%; width: 100%">
-    <div class="d-flex flex-row main-container shadow-lg">
-        <div class="d-flex flex-column flex-grow-1 p-3 container-current">
-            <form asp-action="SearchCity" method="POST" class="d-flex gap-1">
-                <input class="forecast-input" name="city" type="text" placeholder="Search for a city" />
-                <button class="btn btn-primary" type="submit">Search</button>
-            </form>
-            <div class="current-forecast d-flex flex-column flex-grow-1 justify-content-center mt-4" style="color: #55688C">
-                <div>
-                    <p class="fw-bold fs-2">Friday</p>
-                    <p class="forecast-date">25 March, 2019</p>
-                </div>
-                <div class="d-flex gap-3 align-items-center flex-grow-1">
-                    <span class="forecast-degrees fw-bold">32° C</span>
-                    <div class="d-flex flex-column">
-                        <span class="fs-4">Cloudy</span>
-                        <span>Sydney, Australia</span>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex gap-1">
-                <span class="circle" ></span>
-                <span class="circle"></span>
+<div class="d-flex flex-column forecast-container shadow-lg">
+    <div class="d-flex flex-column flex-grow-1 forecast-current-container text-white">
+        <div class="d-flex justify-content-between pt-2 ps-4">
+            <div>
+                <span>
+                    <a asp-controller="Home" asp-action="Index" class="forecast-return">Voltar</a>
+                </span>
             </div>
         </div>
-        <div class="text-white d-flex flex-column container-next-days">
-            <div class="d-flex flex-column justify-content-center forecast-item p-2 gap-2 ">
-                <p class="align-self-start">Saturday</p>
-                <div class="d-flex gap-2 flex-grow-1 justify-content-center">
-                    <img src="https://icons.veryicon.com/png/System/iOS%207/Weather%20Partly%20Cloudy%20Day.png" class="avatar" />
-                    <div>
-                        <p>Max: 25.3°C</p>
-                        <p>Min: 12.1°C</p>
-                    </div>
-                </div>
+        <div class="d-flex flex-column flex-grow-1 ps-4 pe-4 pt-2 pb-2 ">
+            <div class="d-flex flex-column">
+                <p class="fw-bold fs-2">@DateTime.Parse(Model.Localtime).ToString("dddd")</p>
+                <p class="forecast-date">@DateTime.Parse(Model.Localtime).ToString("dd MMMM, yyyy")</p>
             </div>
-            <hr class="hr m-0" />
-            <div class="d-flex flex-column justify-content-center forecast-item p-2 gap-2">
-                <p class="align-self-start">Sunday</p>
-                <div class="d-flex gap-2 flex-grow-1 justify-content-center">
-                    <img src="https://icons.veryicon.com/png/System/iOS%207/Weather%20Partly%20Cloudy%20Day.png" class="avatar" />
-                    <div>
-                        <p>Max: 28.8°C</p>
-                        <p>Min: 18.9°C</p>
-                    </div>
-                </div>
-            </div>
-            <hr class="hr m-0" />
-            <div class="d-flex flex-column justify-content-center forecast-item p-2 gap-2">
-                <p class="align-self-start">Monday</p>
-                <div class="d-flex gap-2 flex-grow-1 justify-content-center">
-                    <img src="https://icons.veryicon.com/png/System/iOS%207/Weather%20Partly%20Cloudy%20Day.png" class="avatar" />
-                    <div>
-                        <p>Max: 22.0°C</p>
-                        <p>Min: 15.7°C</p>
-                    </div>
+            <div class="align-items-center d-flex flex-grow-1 gap-3">
+                <span class="forecast-degrees fw-bold">@Model.CelsiusTemperature°C</span>
+                <div class="d-flex flex-column">
+                    <span class="fs-4">@Model.Condition</span>
+                    <span>@Model.City, @Model.Country</span>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="forecast-daily-container d-flex gap-1">
+        @foreach (var item in Model.ForecastList)
+        {
+            <div class="align-items-center d-flex flex-column flex-grow-1 forecast-daily-item gap-1">
+                <p class="forecast-daily-item-title fw-bold">@item.Date.ToString("dddd").ToUpper()</p>
+                <img src="https://icons.veryicon.com/png/System/iOS%207/Weather%20Partly%20Cloudy%20Day.png" class="flex-grow-1 forecast-daily-item-condition" alt="@item.Condition" />
+                <div class="d-flex flex-column">
+                    <p class="forecast-daily-item-temp">@item.MaxTempCelsius°C</p>
+                    <p class="forecast-daily-item-temp">@item.MinTempCelsius°C</p>
+                </div>
+            </div>
+        }
     </div>
 </div>

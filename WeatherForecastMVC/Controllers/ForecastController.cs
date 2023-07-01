@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WeatherForecastMVC.Interfaces;
 using WeatherForecastMVC.Models;
+using WeatherForecastMVC.Models.ViewModel;
 
 namespace WeatherForecastMVC.Controllers;
 public class ForecastController : Controller
@@ -12,16 +13,21 @@ public class ForecastController : Controller
         _forecastService = forecastService;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(APIForecastModel? apiResult)
     {
-        return View();
+        return View(apiResult);
     }
 
     [HttpPost]
-    public async Task<IActionResult> SearchCity(string city)
+    public async Task<IActionResult> Index(SearchViewModel model)
     {
-        APIForecastModel request = await _forecastService.GetForecastByCity(city);
+        if (!ModelState.IsValid)
+        {
+            return RedirectToAction("Index", "Home", model);
+        }
 
-        return RedirectToAction("Index", request);
+        APIForecastModel? request = await _forecastService.GetForecastByCity(model.City);
+
+        return View(request);
     }
 }
