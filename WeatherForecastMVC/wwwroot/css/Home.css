@@ -1,7 +1,7 @@
 ﻿.search-container {
     background-color: #B7E0F8;
     border-radius: 4px;
-    width: 450px;
+    width: 90%;
 }
 
 .search-title {
@@ -27,6 +27,12 @@
     font-size: 13px;
 }
 
-.search-btn:hover {
-    background-color: #186B99;
+    .search-btn:hover {
+        background-color: #186B99;
+    }
+
+@media(min-width:600px) {
+    .search-container {
+        width: 450px;
+    }
 }
