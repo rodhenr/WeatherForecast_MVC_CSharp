@@ -3,6 +3,7 @@ using System.Text.Json;
 using WeatherForecastMVC.Interfaces;
 using WeatherForecastMVC.Models;
 using WeatherForecastMVC.Models.ViewModel;
+using WeatherForecastMVC.Services.Exceptions;
 
 namespace WeatherForecastMVC.Controllers;
 
@@ -40,6 +41,11 @@ public class HomeController : Controller
             TempData["APIResponse"] = JsonSerializer.Serialize(request);
 
             return RedirectToAction("Index", "Forecast");
+        }
+        catch(ApiBaseUrlNotFoundException ex)
+        {
+            ViewBag.ApplicationError = ex.Message;
+            return View();
         }
         catch (Exception)
         {

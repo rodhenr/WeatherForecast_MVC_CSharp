@@ -1,24 +1,35 @@
-﻿using WeatherForecastMVC.Interfaces;
+﻿using dotenv.net;
+using WeatherForecastMVC.Interfaces;
 using WeatherForecastMVC.Models;
+using WeatherForecastMVC.Services.Exceptions;
 
 namespace WeatherForecastMVC.Services;
 
 public class ForecastService : IForecastService
 {
     private readonly IHttpClientFactory _clientFactory;
+    private readonly string? _apiBaseUrl;
 
     public ForecastService(IHttpClientFactory httpClientFactory)
     {
+        DotEnv.Load();
+
         _clientFactory = httpClientFactory;
+        _apiBaseUrl = Environment.GetEnvironmentVariable("API_BASE_URL");
     }
 
     public async Task<Forecast?> GetForecastByCity(string city)
     {
+        if (_apiBaseUrl == null)
+        {
+            throw new ApiBaseUrlNotFoundException("Configuration not found for API_BASE_URL");
+        }
+
         try
         {
             var client = _clientFactory.CreateClient();
 
-            string url = $"http://localhost:5119/api/weatherForecast?city={city}";
+            string url = $"{_apiBaseUrl}?city={city}";
 
             HttpResponseMessage response = await client.GetAsync(url);
 
@@ -31,9 +42,9 @@ public class ForecastService : IForecastService
 
             return content;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new Exception(ex.Message);
-        }        
+        }
     }
 }
