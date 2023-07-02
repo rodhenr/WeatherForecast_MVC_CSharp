@@ -1,12 +1,12 @@
-﻿@model APIForecastModel
+﻿@model Forecast
 
 @{
     DateTime lastUpdateDateTime = DateTime.Parse(Model.LastUpdate);
     DateTime localTime = DateTime.Parse(Model.Localtime);
     string weekDay = localTime.ToString("dddd");
     string date = localTime.ToString("dd MMMM, yyyy");
-    string localTimeHourMinute = $"{localTime.Hour}:{localTime.Minute}";
-    string lastUpdateHourMinute = $"{lastUpdateDateTime.Hour}:{lastUpdateDateTime.Minute}";
+    string localTimeHourMinute = $"{localTime.Hour.ToString("00")}:{localTime.Minute.ToString("00")}";
+    string lastUpdateHourMinute = $"{lastUpdateDateTime.Hour.ToString("00")}:{lastUpdateDateTime.Minute.ToString("00")}";
 }
 
 <div class="d-flex flex-column forecast-container shadow-lg">

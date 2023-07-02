@@ -3,9 +3,9 @@ using System.Text.Json;
 using WeatherForecastMVC.Interfaces;
 using WeatherForecastMVC.Models;
 using WeatherForecastMVC.Models.ViewModel;
-using WeatherForecastMVC.Services;
 
 namespace WeatherForecastMVC.Controllers;
+
 public class HomeController : Controller
 {
     private readonly IForecastService _forecastService;
@@ -17,26 +17,34 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        if (TempData["ErrorMessage"] is string errorMessage)
+        {
+            ViewBag.ErrorMessage = errorMessage;
+        }
+
         return View();
     }
 
     [HttpPost]
-    public async Task<IActionResult> Index(SearchViewModel? model)
+    public async Task<IActionResult> Index(SearchViewModel model)
     {
-        if (!ModelState.IsValid)
+        try
         {
-            return View(model);
+            Forecast? request = await _forecastService.GetForecastByCity(model.City);
+
+            if (request == null)
+            {
+                return View();
+            }
+
+            TempData["APIResponse"] = JsonSerializer.Serialize(request);
+
+            return RedirectToAction("Index", "Forecast");
         }
-
-        APIForecastModel? request = await _forecastService.GetForecastByCity(model.City);
-
-        TempData["APIResponse"] = JsonSerializer.Serialize(request);
-
-        if(request == null)
+        catch (Exception)
         {
+            ViewBag.ApplicationError = "An error occurred in the application";
             return View();
         }
-
-        return RedirectToAction("Index", "Forecast");
     }
 }
