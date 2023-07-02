@@ -19,7 +19,14 @@ public class ForecastService : IForecastService
 
         HttpResponseMessage response = await client.GetAsync(url);
 
-        return !response.IsSuccessStatusCode ? null : await response.Content.ReadFromJsonAsync<APIForecastModel>();
+        if (!response.IsSuccessStatusCode)
+        {
+            return null;
+        }
+
+        APIForecastModel? content = await response.Content.ReadFromJsonAsync<APIForecastModel>();
+
+        return content;
     }
 }
 

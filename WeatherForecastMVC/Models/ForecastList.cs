@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WeatherForecastMVC.Models;
+﻿namespace WeatherForecastMVC.Models;
 
 public class ForecastList
 {
@@ -17,4 +15,6 @@ public class ForecastList
     public decimal TotalPrecipitationMm { get; set; }
 
     public string Condition { get; set; }
+
+    public string Icon { get; set; }
 }

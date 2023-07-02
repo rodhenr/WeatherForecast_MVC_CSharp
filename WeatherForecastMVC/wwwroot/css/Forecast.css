@@ -5,12 +5,15 @@
     width: 465px;
 }
 
-.forecast-return{
-    color: blue;
-    text-decoration: none;
+.forecast-return {
+    height: 25px;
+    width: 25px;
 }
 
-//Current
+    .forecast-return:hover {
+        opacity: 0.6;
+    }
+
 .forecast-current-container {
 }
 
@@ -22,32 +25,31 @@
     font-size: 70px
 }
 
-//Daily items
 .forecast-daily-container {
-}
-
-.forecast-daily-container p {
-    color: #364954;
-}
-
-.forecast-daily-item {
     background-color: #B7E0F8;
 }
 
-    .forecast-daily-item:hover {
-        background-color: #1994EE;
+    .forecast-daily-container p {
+        color: #364954;
     }
 
 .forecast-daily-item-title {
+    color: #1666a1 !important;
     font-size: 12px;
 }
 
 .forecast-daily-item-temp {
-    font-size: 10px;
+    font-size: 11px;
 }
 
 .forecast-daily-item-condition {
+    background-color: #95C7FB;
     border-radius: 50%;
-    height: 35px;
-    width: 35px;
+    height: 40px;
+    width: 40px;
 }
+
+    .forecast-daily-item-condition img {
+        height: 35px;
+        width: 35px;
+    }

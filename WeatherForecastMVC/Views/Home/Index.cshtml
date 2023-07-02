@@ -1,9 +1,9 @@
-﻿@model SearchViewModel;
+﻿@model SearchViewModel
 
 <div class="d-flex flex-column p-2 gap-4 search-container shadow-lg">
     <p class="fs-4 fw-bold search-title">Weather Forecast Search</p>
     <div class="flex-grow-1">
-        <form class="d-flex flex-column gap-1 search-form" asp-controller="Forecast" asp-action="Index" method="POST">
+        <form class="d-flex flex-column gap-1 search-form" asp-action="Index" method="POST">
             <span asp-validation-for="City" class="text-danger"></span>
             <div class="d-flex gap-1">
                 <input asp-for="City" class="search-input flex-grow-1" type="text" />

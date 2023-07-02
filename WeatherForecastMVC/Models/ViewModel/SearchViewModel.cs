@@ -4,7 +4,7 @@ namespace WeatherForecastMVC.Models.ViewModel;
 
 public class SearchViewModel
 {
-    [Required(ErrorMessage = "This field is required")]
-    [MinLength(3)]
+    [Required(ErrorMessage = "{0} required")]
+    [MinLength(3, ErrorMessage = "{0} size should be at least {1}")]
     public string? City { get; set; }
 }

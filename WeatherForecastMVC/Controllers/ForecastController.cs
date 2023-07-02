@@ -1,33 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WeatherForecastMVC.Interfaces;
+using System.Text.Json;
 using WeatherForecastMVC.Models;
-using WeatherForecastMVC.Models.ViewModel;
 
 namespace WeatherForecastMVC.Controllers;
 public class ForecastController : Controller
 {
-    private readonly IForecastService _forecastService;
-
-    public ForecastController(IForecastService forecastService)
+    public ForecastController()
     {
-        _forecastService = forecastService;
     }
 
-    public IActionResult Index(APIForecastModel? apiResult)
+    public IActionResult Index()
     {
-        return View(apiResult);
-    }
+        string? serializedData = TempData["APIResponse"] as string;
 
-    [HttpPost]
-    public async Task<IActionResult> Index(SearchViewModel model)
-    {
-        if (!ModelState.IsValid)
+        if (TempData["APIResponse"] != null & serializedData != null)
         {
-            return RedirectToAction("Index", "Home", model);
+            APIForecastModel forecastData = JsonSerializer.Deserialize<APIForecastModel>(serializedData);
+
+            return View(forecastData);
         }
 
-        APIForecastModel? request = await _forecastService.GetForecastByCity(model.City);
-
-        return View(request);
+        return RedirectToAction("Index", "Home");
     }
 }
+
